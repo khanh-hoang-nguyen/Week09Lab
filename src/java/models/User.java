@@ -12,28 +12,28 @@ import java.io.Serializable;
  * @author Khanh Nguyen
  */
 public class User implements Serializable {
-    
-    private String email;
-    private String firstname;
-    private String lastname;
-    private String password;
+ 
+    String email;
+    String firstName;
+    String lastName;
+    String password;
     Role role;
 
     public User() {
     }
 
-    public User(String email, String firstname, String lastname, String password, Role role) {
+    public User(String email, String firstName, String lastName, String password, Role role) {
         this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
         this.role = role;
     }
-    
-    public User(String email, String firstname, String lastname, Role role) {
+
+    public User(String email, String firstName, String lastName, Role role) {
         this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.role = role;
     }
 
@@ -45,20 +45,20 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -77,6 +77,9 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return "User{" + "email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", role=" + role + '}';
+    }
+
 }

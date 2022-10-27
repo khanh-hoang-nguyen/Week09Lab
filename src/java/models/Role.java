@@ -12,33 +12,41 @@ import java.io.Serializable;
  * @author Khanh Nguyen
  */
 public class Role implements Serializable {
-    private String systemadmin;
-    private String regularuser;
+    
+    int roleID;
+    String roleName;
 
     public Role() {
     }
 
-    public Role(String systemadmin, String regularuser) {
-        this.systemadmin = systemadmin;
-        this.regularuser = regularuser;
-    }
-
-    public String getSystemadmin() {
-        return systemadmin;
-    }
-
-    public void setSystemadmin(String systemadmin) {
-        this.systemadmin = systemadmin;
-    }
-
-    public String getRegularuser() {
-        return regularuser;
-    }
-
-    public void setRegularuser(String regularuser) {
-        this.regularuser = regularuser;
+    public Role(int roleID, String roleName) {
+        this.roleID = roleID;
+        this.roleName = roleName;
     }
     
-    
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public int getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(int roleID) {
+        this.roleID = roleID;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    @Override
+    public String toString() {
+        return this.roleName;
+    }
     
 }
