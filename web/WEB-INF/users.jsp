@@ -30,8 +30,20 @@
                     <td name="firstname">${user.firstName}</td>
                     <td name="lastname">${user.lastName}</td>
                     <td name="role">${user.role}</td>
-                    <td><a href="users?email=${user.email}&amp;action=edit">Edit</a></td>
-                    <td><a href="users?email=${user.email}&amp;action=delete">Delete</a></td>
+                    <td>
+                        <c:url value="/users" var="editUser">
+                            <c:param name="action" value="edit" />
+                            <c:param name="email" value="${user.email}" />
+                        </c:url>
+                        <a href=${editUser}>Edit</a>
+                    </td>
+                    <td>
+                        <c:url value="/users" var="deleteUser">
+                            <c:param name="action" value="delete" />
+                            <c:param name="email" value="${user.email}" />
+                        </c:url>
+                        <a href=${deleteUser}>Delete</a>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
@@ -43,8 +55,7 @@
                 First name: <input type="text" name="firstname" > <br>
                 Last name: <input type="text" name="lastname" > <br>
                 Password: <input type="password" name="password" > <br>
-
-                Role: <select name="roles" id="roles">
+                Role: <select name="role" id="roles">
                     <option value="system admin">system admin</option>
                     <option value="regular user">regular user</option>
                 </select> <br>
@@ -62,18 +73,19 @@
                 First name: <input type="text" name="firstname" value="${selectedUser.firstName}" > <br>
                 Last name: <input type="text" name="lastname" value="${selectedUser.lastName}" > <br>
                 Password: <input type="password" name="password" > <br>
+                Role: <select name="role" id="roles">
+                    <c:forEach items="${roles}" var="myRole">
+                        <option value="${myRole.roleName}" ${myRole.roleName == selectedUser.role ? selectedUser.role : myRole.roleName}>${selectedUser.role}</option>
+                    </c:forEach>
 
-                Role: <select name="roles" id="roles">
-                    <option value="${selectedUser.role}">${selectedUser.role}</option>
-                    <option value="${selectedUser.role}">${selectedUser.role}</option>
                 </select> <br>
-
             </form>
             <form action="users" method="post">
                 <input type="hidden" name="action" value="update">
                 <input type="submit" value="Update">
-                <input type="hidden" name="action" value="cancel">
-                <input type="submit" value="Cancel">
+            </form>
+            <form action="users">
+                <input type="submit" value="Cancel" />
             </form>
         </c:if>
 
