@@ -14,9 +14,14 @@
     </head>
     <body>
         <h1>Manage Users</h1>
-        <p>${message}</p>
+        <p>
+            <c:if test="${message eq 'create'}">User created</c:if>
+            <c:if test="${message eq 'update'}">User updated</c:if>
+            <c:if test="${message eq 'delete'}">User deleted</c:if>
+            <c:if test="${message eq 'error'}">Sorry, something went wrong.</c:if>
+        </p>
         <table border="1">
-            <tr>
+            <tr style="text-align:center; font-weight: bold">
                 <td>Email</td>
                 <td>First Name</td>
                 <td>Last Name</td>
@@ -60,7 +65,6 @@
                     <option value="regular user">regular user</option>
                 </select> <br>
 
-                <br>
                 <input type="hidden" name="action" value="create">
                 <input type="submit" value="Add user">
             </form>
@@ -75,18 +79,21 @@
                 Password: <input type="password" name="password" > <br>
                 Role: <select name="role" id="roles">
                     <c:forEach items="${roles}" var="myRole">
-                        <option value="${myRole.roleName}" ${myRole.roleName == selectedUser.role ? selectedUser.role : myRole.roleName}>${selectedUser.role}</option>
+                        <option value="${myRole.roleName}" ${myRole.roleName == selectedUser.role ? "selected" : ""}>${myRole.roleName}</option>
                     </c:forEach>
 
                 </select> <br>
             </form>
-            <form action="users" method="post">
-                <input type="hidden" name="action" value="update">
-                <input type="submit" value="Update">
-            </form>
-            <form action="users">
-                <input type="submit" value="Cancel" />
-            </form>
+                <div style="display: flex">
+                <form action="users" method="post">
+                    <input type="hidden" name="action" value="update">
+                    <input type="submit" value="Update">
+                </form>
+                <form action="users">
+                    <input type="submit" value="Cancel" />
+                </form>
+            </div>
+
         </c:if>
 
     </body>
