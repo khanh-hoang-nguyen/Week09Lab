@@ -14,12 +14,7 @@
     </head>
     <body>
         <h1>Manage Users</h1>
-        <p>
-            <c:if test="${message eq 'create'}">User created</c:if>
-            <c:if test="${message eq 'update'}">User updated</c:if>
-            <c:if test="${message eq 'delete'}">User deleted</c:if>
-            <c:if test="${message eq 'error'}">Sorry, something went wrong.</c:if>
-        </p>
+        <h3>${message}</h3>
         <table border="1">
             <tr style="text-align:center; font-weight: bold">
                 <td>Email</td>
@@ -37,15 +32,15 @@
                     <td name="role">${user.role}</td>
                     <td>
                         <c:url value="/users" var="editUser">
-                            <c:param name="action" value="edit" />
                             <c:param name="email" value="${user.email}" />
+                            <c:param name="action" value="edit" />
                         </c:url>
                         <a href=${editUser}>Edit</a>
                     </td>
                     <td>
                         <c:url value="/users" var="deleteUser">
-                            <c:param name="action" value="delete" />
                             <c:param name="email" value="${user.email}" />
+                            <c:param name="action" value="delete" />
                         </c:url>
                         <a href=${deleteUser}>Delete</a>
                     </td>
@@ -73,28 +68,40 @@
         <c:if test="${selectedUser ne null}">
             <h2>Edit User</h2>
             <form action="users" method="post">
-                <p>Email ${selectedUser.email}</p>
-                First name: <input type="text" name="firstname" value="${selectedUser.firstName}" > <br>
-                Last name: <input type="text" name="lastname" value="${selectedUser.lastName}" > <br>
+                <input type="hidden" name="email" value="${selectedUser.email}"> 
+                Email: ${selectedUser.email} <br>
+                First name: <input type="text" value="${selectedUser.firstName}" name="firstname" > <br>
+                Last name: <input type="text" value="${selectedUser.lastName}" name="lastname" > <br>
                 Password: <input type="password" name="password" > <br>
-                Role: <select name="role" id="roles">
+                Role: <select id="roles" name="role">
                     <c:forEach items="${roles}" var="myRole">
                         <option value="${myRole.roleName}" ${myRole.roleName == selectedUser.role ? "selected" : ""}>${myRole.roleName}</option>
                     </c:forEach>
-
                 </select> <br>
-            </form>
+
                 <div style="display: flex">
-                <form action="users" method="post">
                     <input type="hidden" name="action" value="update">
                     <input type="submit" value="Update">
-                </form>
-                <form action="users">
-                    <input type="submit" value="Cancel" />
-                </form>
-            </div>
-
+                    <a href="\users" class="button">Cancel</a>
+                </div>
+            </form>
         </c:if>
-
+        <p>${alertMessage}</p>
     </body>
+    <style type="text/css">
+        .button {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #eaeaed;
+            padding: 3px;
+            border: 1px solid #a6a6a7;
+            color: black;
+            text-decoration: none;
+        }
+        .button:focus,
+        .button:hover {
+            filter: brightness(90%) saturate(110%);
+        }
+    </style>
 </html>
