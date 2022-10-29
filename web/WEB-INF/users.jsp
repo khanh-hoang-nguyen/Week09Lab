@@ -15,7 +15,8 @@
     <body>
         <h1>Manage Users</h1>
         <h3>${message}</h3>
-        <table border="1">
+        <c:if test="${users.size() gt 0}">
+            <table border="1">
             <tr style="text-align:center; font-weight: bold">
                 <td>Email</td>
                 <td>First Name</td>
@@ -24,12 +25,17 @@
                 <td></td>
                 <td></td>
             </tr>
+        </c:if>
             <c:forEach items="${users}" var="user">
                 <tr>
                     <td name="email">${user.email}</td>
                     <td name="firstname">${user.firstName}</td>
                     <td name="lastname">${user.lastName}</td>
-                    <td name="role">${user.role}</td>
+                    <c:forEach items="${roles}" var="myRole">
+                        <c:if test="${''.concat(myRole.roleId) == user.role}">
+                            <td name="role">${myRole.roleName}</td>
+                        </c:if>
+                    </c:forEach>
                     <td>
                         <c:url value="/users" var="editUser">
                             <c:param name="email" value="${user.email}" />
@@ -75,7 +81,7 @@
                 Password: <input type="password" name="password" > <br>
                 Role: <select id="roles" name="role">
                     <c:forEach items="${roles}" var="myRole">
-                        <option value="${myRole.roleName}" ${myRole.roleName == selectedUser.role ? "selected" : ""}>${myRole.roleName}</option>
+                        <option value="${myRole.roleId}" ${''.concat(myRole.roleId) == selectedUser.role ? "selected" : ""}>${myRole.roleName}</option>
                     </c:forEach>
                 </select> <br>
 
