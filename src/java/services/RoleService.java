@@ -17,9 +17,8 @@ import models.User;
  */
 public class RoleService {
 
-    public int getRoleID(Role role) {
-        String name = role.getRoleName();
-        if (name.equals("system admin")) {
+    public int getRoleID(String roleName) {
+        if (roleName.equals("system admin")) {
             return 1;
         } else {
             return 2;
